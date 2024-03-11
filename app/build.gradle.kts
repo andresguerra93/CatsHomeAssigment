@@ -23,12 +23,19 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
+
     }
 
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            //isShrinkResounces = true
+            isShrinkResources = false
             isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -37,21 +44,24 @@ android {
 
             resValue("string", "agcname", "CatsApp")
 
-            buildConfigField("String", "BASE_URL", "\"https://urlrelease/\"")
-            buildConfigField("String", "BASE_URL_YOUTUBE", "\"https://transcribeapi.centroesteticasmedellin.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://cataas.com/\"")
+
         }
 
         getByName("debug"){
             isDebuggable = true
 
             resValue("string", "agcname", "[DEBUG] CatsApp")
-            buildConfigField("String", "BASE_URL", "\"https://urldebug/\"")
-            buildConfigField("String", "BASE_URL_YOUTUBE", "\"https://transcribeapi.centroesteticasmedellin.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://cataas.com/\"")
+
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+
+
     }
 
     buildFeatures {
@@ -71,6 +81,11 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
+    implementation ("com.google.code.gson:gson:2.8.8")
+
+    //Desugaring
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:1.0.10")
+
     //NavComponent fragment xml
     val navVersion = "2.7.6"
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
@@ -82,8 +97,17 @@ dependencies {
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
+
+    // Room
+    val roomVersion = "2.6.0"
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
 
     //UnitTesting
     testImplementation("junit:junit:4.13.2")
