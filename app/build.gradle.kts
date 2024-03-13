@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.agc.catshomeassignmet"
-        minSdk = 25
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -45,6 +45,7 @@ android {
             resValue("string", "agcname", "CatsApp")
 
             buildConfigField("String", "BASE_URL", "\"https://cataas.com/\"")
+            buildConfigField("String", "BASE_URL_IMAGE", "\"https://cataas.com/cat/\"")
 
         }
 
@@ -53,6 +54,7 @@ android {
 
             resValue("string", "agcname", "[DEBUG] CatsApp")
             buildConfigField("String", "BASE_URL", "\"https://cataas.com/\"")
+            buildConfigField("String", "BASE_URL_IMAGE", "\"https://cataas.com/cat/\"")
 
         }
     }
@@ -65,8 +67,13 @@ android {
     }
 
     buildFeatures {
+        compose = true
         viewBinding = true
         buildConfig = true
+    }
+    composeOptions {
+        //soluciona error de kotlin 1.8.10
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
 
     kotlinOptions {
@@ -76,9 +83,10 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation ("com.google.code.gson:gson:2.8.8")
@@ -87,9 +95,15 @@ dependencies {
     coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:1.0.10")
 
     //NavComponent fragment xml
-    val navVersion = "2.7.6"
+    val navVersion = "2.7.5"
+   // implementation ("androidx.fragment:fragment-ktx")
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+   // implementation("androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion")
+
+    // Navigation
+    val navCompose = "2.7.5"
+    implementation( "androidx.navigation:navigation-compose:$navCompose")
 
     //DaggerHilt
     implementation("com.google.dagger:hilt-android:2.48")
@@ -105,9 +119,8 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
 
-    //Glide
-    implementation ("com.github.bumptech.glide:glide:4.13.2")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
+    //Picasso
+    implementation ("com.squareup.picasso:picasso:2.8")
 
     //UnitTesting
     testImplementation("junit:junit:4.13.2")

@@ -18,11 +18,10 @@ import javax.inject.Singleton
 object NetworkModule {
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(): Retrofit {
         return Retrofit
             .Builder()
             .baseUrl(BASE_URL)
-            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

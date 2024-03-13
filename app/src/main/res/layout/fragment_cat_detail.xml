@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.screens.detail.CatDetailFragment">
+
+    <ImageView
+        android:id="@+id/ivCat"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="220dp"
+        android:elevation="8dp"
+        app:cardCornerRadius="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCatOwner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/primaryColorLetters"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                tools:text="Cat Owner" />
+
+
+            <TextView
+                android:id="@+id/tvTags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/primaryColorLetters"
+                android:textSize="28sp"
+                android:textStyle="italic"
+                tools:text="Tags" />
+
+            <TextView
+                android:id="@+id/tvId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/primaryColorLetters"
+                android:textSize="15sp"
+                tools:text="Size" />
+
+            <TextView
+                android:id="@+id/tvSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/primaryColorLetters"
+                android:textSize="14sp"
+                tools:text="Size" />
+
+            <TextView
+                android:id="@+id/tvType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/primaryColorLetters"
+                android:textSize="14sp"
+                tools:text="Image Type" />
+
+            <TextView
+                android:id="@+id/tvCreateDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/primaryColorLetters"
+                android:textSize="12sp"
+                tools:text="Monday,12, 2027" />
+
+            <TextView
+                android:id="@+id/tvUpdateDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/primaryColorLetters"
+                android:textSize="12sp"
+                tools:text="Monday,12, 2027" />
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundTint="@color/primaryColor"
+                android:foregroundTintMode="add"
+                android:src="@drawable/ic_cats"
+                app:tint="@color/primaryColorLetters" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

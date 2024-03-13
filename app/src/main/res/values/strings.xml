@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Cats Home Assignmet</string>
+    <string name="cat_list">Cats</string>
+    <string name="cat_detail">Cat</string>
+    <string name="fragment_cat_list_label">Cats</string>
+    <string name="fragment_cat_detail_label">Cat</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="day_mode">Day Mode</string>
 </resources>

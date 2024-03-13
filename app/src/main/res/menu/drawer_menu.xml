@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/catListFragment"
+        android:title="@string/cat_list"
+        android:icon= "@drawable/ic_cat_selected"/>
+
+    <item
+        android:id="@+id/catDetailFragment"
+        android:title="@string/cat_detail"
+        android:icon= "@drawable/ic_cat"/>
+
+</menu>
