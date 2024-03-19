@@ -1,13 +1,10 @@
 package com.agc.catshomeassignmet.ui.screens.list
 
-import android.content.res.AssetManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,14 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agc.catshomeassignmet.databinding.FragmentCatListBinding
-import com.agc.catshomeassignmet.domain.model.Cat
 import com.agc.catshomeassignmet.ui.screens.list.recyclerview.CatListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.agc.catshomeassignmet.R
 import com.agc.catshomeassignmet.ui.screens.detail.CatDetailFragment
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -43,18 +38,12 @@ class CatListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
         initUI()
         viewModel.loadMoreCatsFromApi()
         viewModel.loadCatsFromRoom(activity!!.assets)
-
-
     }
 
     private fun initUI() {
-
         initList()
         initUIState()
     }
@@ -106,9 +95,7 @@ class CatListFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
                 viewModel.cats.collect {
-
                     catListAdapter.updateList(it.toMutableList())
-
 
                 }
             }

@@ -8,22 +8,41 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 
-class GetCatsFromApiUseCaseTest{
+class GetCatsFromApiUseCaseTest {
+
     @Test
-    fun testGetCatsFromApi() = runBlocking {
-        // Dado
-        val repository = mockk<CatsRepository>()
+    fun `test Get Cats From Api`() = runBlocking {
+        // Given
+        val repository = mockk<CatsRepository>(relaxed = true)
         val useCase = GetCatsFromApiUseCase(repository)
         val skip = 10
-        val catsFromApi = listOf(Cat(/* Datos de ejemplo */))
+        val catsFromApi = listOf(
+            Cat(
+                id = "123",
+                owner = "Sample Owner",
+                tags = listOf("Tag1", "Tag2"),
+                size = 42,
+                mimeType = "image/jpeg",
+                createdAt = "2024-03-12T10:30:00Z",
+                updatedAt = "2024-03-12T15:45:00Z"
+            )
+
+        )
 
         coEvery { repository.getCatsFromApi(skip) } returns catsFromApi
 
-        // Cuando
+        // When
         val result = useCase.getCats(skip)
 
-        // Entonces
-        // Verifica que el resultado sea el esperado
-        // Agrega más verificaciones según tu caso
+        // Then
+        assertEquals(catsFromApi.size, result.size)
+        assertEquals(catsFromApi[0].id, result[0].id)
+        assertEquals(catsFromApi[0].owner, result[0].owner)
+        assertEquals(catsFromApi[0].tags, result[0].tags)
+        assertEquals(catsFromApi[0].size, result[0].size)
+        assertEquals(catsFromApi[0].mimeType, result[0].mimeType)
+        assertEquals(catsFromApi[0].createdAt, result[0].createdAt)
+        assertEquals(catsFromApi[0].updatedAt, result[0].updatedAt)
+
     }
 }

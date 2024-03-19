@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetCatsFromRoomUseCase @Inject constructor(private val repository: CatsRepository) {
     suspend fun getCats(assets: AssetManager): List<Cat> {
         val catsFromRoom = repository.getAllCatsFromDatabase(assets)
-        Log.d("MyTag", "The cats from ROOM in the use cas are: $catsFromRoom")
+      //  Log.d("MyTag", "The cats from ROOM in the use cas are: $catsFromRoom")
         //return repository.getAllCatsFromDatabase()
         return catsFromRoom
     }

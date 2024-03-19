@@ -20,3 +20,9 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep class com.agc.catshomeassignmet.data.network.dto.*
+-dontwarn org.conscrypt.Conscrypt$Version
+-dontwarn org.conscrypt.Conscrypt
+-dontwarn org.conscrypt.ConscryptHostnameVerifier
+-dontwarn org.openjsse.javax.net.ssl.SSLParameters
+-dontwarn org.openjsse.javax.net.ssl.SSLSocket
+-dontwarn org.openjsse.net.ssl.OpenJSSE

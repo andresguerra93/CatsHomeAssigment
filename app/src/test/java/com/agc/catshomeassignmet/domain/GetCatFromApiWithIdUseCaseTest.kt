@@ -8,22 +8,37 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 
-class GetCatFromApiWithIdUseCaseTest{
+class GetCatFromApiWithIdUseCaseTest {
+
     @Test
-    fun testGetCatFromApiWithId() = runBlocking {
-        // Dado
-        val repository = mockk<CatsRepository>()
+    fun `test Get Cat From Api With Id`() = runBlocking {
+        // Given
+        val repository = mockk<CatsRepository>(relaxed = true)
         val useCase = GetCatFromApiWithIdUseCase(repository)
         val catId = "123"
-        val cat = Cat(/* Datos de ejemplo */)
+        val cat = Cat(
+            id = "456",
+            owner = "Sample Owner",
+            tags = listOf("Tag1", "Tag2"),
+            size = 42,
+            mimeType = "image/jpeg",
+            createdAt = "2024-03-12T10:30:00Z",
+            updatedAt = "2024-03-12T15:45:00Z"
+        )
 
         coEvery { repository.getCatFromApiWithId(catId) } returns cat
 
-        // Cuando
+        // When
         val result = useCase.getCatFromApiWithId(catId)
 
-        // Entonces
-        // Verifica que el resultado sea el esperado
-        // Agrega más verificaciones según tu caso
+        // Then
+        assertEquals(cat.id, result.id)
+        assertEquals(cat.owner, result.owner)
+        assertEquals(cat.tags, result.tags)
+        assertEquals(cat.size, result.size)
+        assertEquals(cat.mimeType, result.mimeType)
+        assertEquals(cat.createdAt, result.createdAt)
+        assertEquals(cat.updatedAt, result.updatedAt)
+
     }
 }

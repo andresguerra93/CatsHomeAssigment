@@ -9,64 +9,84 @@ import com.agc.catshomeassignmet.data.network.dto.CatsResponseDto
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 import org.junit.Test
 
 class CatsRepositoryTest{
 
     @Test
-    fun testGetCatsFromApi() = runBlocking {
-        // Dado
-        val apiService = mockk<CatsApiService>()
-        val catDao = mockk<CatDao>()
+    fun `test Get Cats From Api`() = runBlocking {
+        // Given
+        val apiService = mockk<CatsApiService>(relaxed = true)
+        val catDao = mockk<CatDao>(relaxed = true)
         val repository = CatsRepository(apiService, catDao)
         val skip = 10
-        val catsResponse = listOf(CatsResponseDto(/* Datos de ejemplo */))
+        val catsResponse = listOf(CatsResponseDto(
+            id = "123",
+            tags = listOf("Tag1", "Tag2"),
+            size = 42,
+            mimeType = "image/jpeg"
+        ))
 
-        // Cuando
+        // When
         coEvery { apiService.getCats(skip) } returns catsResponse
 
-        // Entonces
+        // Then
         val result = repository.getCatsFromApi(skip)
         assert(result.isNotEmpty())
-        // Agrega más verificaciones según tu caso
+
     }
 
     @Test
-    fun testGetAllCatsFromDatabase() = runBlocking {
-        // Dado
-        val apiService = mockk<CatsApiService>()
-        val catDao = mockk<CatDao>()
+    fun `test Get All Cats From Database`() =runBlocking {
+        // Given
+        val apiService = mockk<CatsApiService>(relaxed = true)
+        val catDao = mockk<CatDao>(relaxed = true)
         val repository = CatsRepository(apiService, catDao)
-        val assets: AssetManager = /* Obtén una instancia de AssetManager */
-        val catsEntity = listOf(CatEntity(/* Datos de ejemplo */))
 
-        // Cuando
+
+        val assets = mockk<AssetManager>(relaxed = true)
+
+        val catsEntity = listOf(CatEntity(
+            id = "789",
+            owner = "null",
+            tags = emptyList(),
+            createdAt = "null",
+            updatedAt = "2024-03-12T15:45:00Z"
+
+        ))
+
+        // When
         coEvery { catDao.countCats() } returns 0
         coEvery { catDao.getAllCats() } returns catsEntity
 
-        // Entonces
+        // Then
         val result = repository.getAllCatsFromDatabase(assets)
         assert(result.isNotEmpty())
-        // Agrega más verificaciones según tu caso
-    }
 
+    }
     @Test
-    fun testGetCatFromApiWithId() = runBlocking {
-        // Dado
-        val apiService = mockk<CatsApiService>()
-        val catDao = mockk<CatDao>()
+    fun `test Get Cat From Api With Id`() = runBlocking {
+        // Given
+        val apiService = mockk<CatsApiService>(relaxed = true)
+        val catDao = mockk<CatDao>(relaxed = true)
         val repository = CatsRepository(apiService, catDao)
         val catId = "123"
-        val catResponse = CatResponseDto(/* Datos de ejemplo */)
+        val catResponse = CatResponseDto(
+            id = "456",
+            tags = emptyList(),
+            size = 0,
+            mimeType = "null",
+            createdAt = "2024-03-12T10:30:00Z",
+            updatedAt = "2024-03-12T10:30:00Z"
 
-        // Cuando
+        )
+
+        // When
         coEvery { apiService.getCatWithId(catId, "true") } returns catResponse
 
-        // Entonces
+        // Then
         val result = repository.getCatFromApiWithId(catId)
-        // Verifica que el resultado sea el esperado
-        // Agrega más verificaciones según tu caso
+
     }
 
 }
