@@ -20,6 +20,11 @@ class CatsRepository @Inject constructor(
         val response: List<CatsResponseDto> = api.getCats(skip)
         return response.map { it.toDomain()  }
     }
+    suspend fun addRoomAllCatsFromJson(assets: AssetManager):List<CatEntity>{
+        val cats = readDataFromJSON(assets) // Implement this method to read data from the JSON file
+        catDao.insertCats(cats)
+        return cats
+    }
 
     suspend fun getAllCatsFromDatabase(assets: AssetManager):List<Cat>{
         if (catDao.countCats() == 0) {

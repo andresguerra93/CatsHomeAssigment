@@ -9,6 +9,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.io.ByteArrayInputStream
 import java.io.InputStream
 
 class ReadDataFromJsonKtTest{
@@ -21,8 +22,7 @@ class ReadDataFromJsonKtTest{
         val apiService = mockk<CatsApiService>(relaxed = true)
         val catDao = mockk<CatDao>(relaxed = true)
         val repository = CatsRepository(apiService, catDao)
-        val inputStream = mockk<InputStream>(relaxed = true)
-        val inputString = """[
+        val inputString2 = """[
             {
                 "_id": "MfHpIfFxibiqr8Wh",
                 "mimetype": "image/jpeg",
@@ -37,13 +37,19 @@ class ReadDataFromJsonKtTest{
             }
             // Add more sample data as needed
         ]"""
+        val inputStream = ByteArrayInputStream(inputString2.toByteArray())
+        //val inputStream: InputStream = inputString2.byteInputStream()
+        //val inputStream = mockk<InputStream>(relaxed = true)
+        //val jsonArray = JSONArray(inputString)
 
-
+       // coEvery { catDao.countCats() } returns 0
         coEvery { assets.open("cats.json") } returns inputStream
-        coEvery { inputStream.bufferedReader().use { it.readText() } } returns inputString
+
+        //coEvery { inputStream.bufferedReader().use { it.readText() } } returns inputString2
+
 
         // When
-        val result = repository.getAllCatsFromDatabase(assets)
+        val result = repository.addRoomAllCatsFromJson(assets)
 
         // Then
         assertEquals(2, result.size) //
