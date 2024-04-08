@@ -6,18 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.agc.catshomeassignmet.BuildConfig
 import com.agc.catshomeassignmet.databinding.FragmentCatDetailBinding
 import com.agc.catshomeassignmet.domain.model.Cat
-import com.agc.catshomeassignmet.ui.screens.MainActivity
 import com.agc.catshomeassignmet.ui.screens.utils.builImageUrl
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -48,18 +44,11 @@ class CatDetailFragment : Fragment() {
         initUI()
     }
     private fun initUI() {
-        initList()
+
         initUIState()
     }
 
-        private fun initList() {
-           /* binding.btnToggleTheme.setOnClickListener {
 
-                findNavController().popBackStack()
-            }*/
-            
-
-        }
     private fun initUIState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
