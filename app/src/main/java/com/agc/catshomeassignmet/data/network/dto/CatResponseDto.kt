@@ -8,6 +8,6 @@ data class CatResponseDto(
     @SerializedName("mimetype") val mimeType: String,
     @SerializedName("size") val size: Int,
     @SerializedName("createdAt") val createdAt: String,
-    @SerializedName("editedAt") val updatedAt: String,
+    @SerializedName("editedAt", alternate = ["updatedAt"]) val updatedAt: String,
     @SerializedName("_id") val id: String
 )

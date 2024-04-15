@@ -1,6 +1,7 @@
 package com.agc.catshomeassignmet.ui.screens.list
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.agc.catshomeassignmet.databinding.FragmentCatListBinding
 import com.agc.catshomeassignmet.ui.screens.list.recyclerview.CatListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.agc.catshomeassignmet.R
 import com.agc.catshomeassignmet.ui.screens.detail.CatDetailFragment
@@ -26,14 +28,18 @@ class CatListFragment : Fragment() {
     private val viewModel: CatListViewModel by viewModels()
     private lateinit var catListAdapter: CatListAdapter
     private var _binding: FragmentCatListBinding? = null
+
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentCatListBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,6 +47,7 @@ class CatListFragment : Fragment() {
         initUI()
         viewModel.loadMoreCatsFromApi()
         viewModel.loadCatsFromRoom(activity!!.assets)
+
     }
 
     private fun initUI() {
@@ -67,26 +74,7 @@ class CatListFragment : Fragment() {
                 //val action = CatListFragmentDirections.actionCatListFragmentToCatDetailFragment(it)
                 // findNavController().navigate(action)
             })
-        binding.rvCats.setHasFixedSize(true)
-        binding.rvCats.layoutManager = LinearLayoutManager(context)
-        binding.rvCats.adapter = catListAdapter
-
-
-        binding.rvCats.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > -1) {
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    val visibleItemCount = layoutManager.childCount
-                    val totalItemCount = layoutManager.itemCount
-                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
-                        viewModel.loadMoreCatsFromApi()
-                        catListAdapter.notifyItemRangeInserted(totalItemCount, totalItemCount + 10)
-                    }
-                }
-            }
-        })
+        configureViews()
 
     }
 
@@ -101,12 +89,69 @@ class CatListFragment : Fragment() {
             }
         }
     }
+    private fun configureViews() {
+        if (isLandscapeOrientation()) {
+            binding.rvCats.setHasFixedSize(true)
+            binding.rvCats.layoutManager = GridLayoutManager(context, 3)
+            binding.rvCats.adapter = catListAdapter
 
+            binding.rvCats.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > -1) {
+                        val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                        val visibleItemCount = layoutManager.childCount
+                        val totalItemCount = layoutManager.itemCount
+                        val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                        if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
+                            viewModel.loadMoreCatsFromApi()
+                            catListAdapter.notifyItemRangeInserted(totalItemCount, totalItemCount + 10)
+                        }
+                    }
+                }
+            })
+
+        } else {
+
+            binding.rvCats.setHasFixedSize(true)
+            binding.rvCats.layoutManager = LinearLayoutManager(context)
+            binding.rvCats.adapter = catListAdapter
+
+
+            binding.rvCats.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > -1) {
+                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                        val visibleItemCount = layoutManager.childCount
+                        val totalItemCount = layoutManager.itemCount
+                        val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                        if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
+                            viewModel.loadMoreCatsFromApi()
+                            catListAdapter.notifyItemRangeInserted(totalItemCount, totalItemCount + 10)
+                        }
+                    }
+                }
+            })
+
+        }
+
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
+    private fun isLandscapeOrientation(): Boolean {
+        val displayMetrics = DisplayMetrics()
+        activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+        val screenWidth = displayMetrics.widthPixels
+        val screenHeight = displayMetrics.heightPixels
+
+        return screenWidth > screenHeight
+    }
+
 }
 
 

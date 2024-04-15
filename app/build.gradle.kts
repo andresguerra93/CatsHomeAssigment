@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.agc.catshomeassignmet"
-        minSdk = 23
+        minSdk = 25
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -90,6 +90,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation ("com.google.code.gson:gson:2.8.8")
+
+
 
     //Desugaring
     coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:1.0.10")

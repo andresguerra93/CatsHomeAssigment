@@ -22,8 +22,8 @@ class GetCatFromApiWithIdUseCaseTest {
             tags = listOf("Tag1", "Tag2"),
             size = 42,
             mimeType = "image/jpeg",
-            createdAt = "2024-03-12T10:30:00Z",
-            updatedAt = "2024-03-12T15:45:00Z"
+            createdAt = "2022-06-01T22:29:22.394Z",
+            updatedAt = "2022-06-01T22:29:22.394Z"
         )
 
         coEvery { repository.getCatFromApiWithId(catId) } returns cat

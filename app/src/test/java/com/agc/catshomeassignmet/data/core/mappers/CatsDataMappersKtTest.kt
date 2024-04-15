@@ -39,7 +39,7 @@ class CatsDataMappersKtTest {
             size = 0,
             mimeType = "",
             createdAt = "",
-            updatedAt = "2024-03-12T10:30:00Z"
+            updatedAt = "2024-03-05T18:57:39.550Z"
 
         )
 
@@ -53,8 +53,7 @@ class CatsDataMappersKtTest {
         assert(cat.size == 0)
         assert(cat.mimeType == "Without mimeType")
         assert(cat.createdAt == "Error in the Date")
-        //assert( == "Sun, 12 Mar 2024")
-        assertEquals("Tue, 12 Mar 2024", cat.updatedAt)
+        assertEquals("05/03/2024", cat.updatedAt)
     }
     @Test
     fun `test Cat Entity To Domain`() {
@@ -78,31 +77,34 @@ class CatsDataMappersKtTest {
         assert(cat.size == 0)
         assert(cat.mimeType == "Without Type")
         assert(cat.createdAt == "Error in the Date")
-        assert(cat.updatedAt == "Tue, 15 Mar 2022")
+        //assert(cat.updatedAt == "Tue, 15 Mar 2022")
+        //assert (cat.updatedAt == "15/03/2022")
+        assertEquals("15/03/2022", cat.updatedAt)
     }
 
     @Test
     fun `test Date Formatter for Cat Entity`() {
         // GIVEN
-        val date = "Tue Mar 15 2022 14:30:00 GMT+0000 (Coordinated Universal Time)"
+        val date = "Tue Oct 11 2022 07:52:32 GMT+0000 (Coordinated Universal Time)"
 
         // WHEN
         val formattedDate = dateFormaterCatEntity(date)
 
         // THEN
-        assert(formattedDate == "Tue, 15 Mar 2022")
+        //assert(formattedDate == "Sun, 01 May 2022")
+        assertEquals("11/10/2022", formattedDate)
     }
 
     @Test
     fun `test Date Formatter for Cat ResponseDto`() {
         // GIVEN
-        val date = "2024-03-12T10:30:00Z"
+        val date = "2022-06-01T22:29:22.394Z"
 
         // WHEN
         val formattedDate = dateFormaterCatResponseDto(date)
 
         // THEN
-        assertEquals("Tue, 12 Mar 2024", formattedDate)
+        assertEquals("01/06/2022", formattedDate)
     }
 
 }

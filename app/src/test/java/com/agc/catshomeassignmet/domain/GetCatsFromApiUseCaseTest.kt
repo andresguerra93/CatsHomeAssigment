@@ -23,8 +23,8 @@ class GetCatsFromApiUseCaseTest {
                 tags = listOf("Tag1", "Tag2"),
                 size = 42,
                 mimeType = "image/jpeg",
-                createdAt = "2024-03-12T10:30:00Z",
-                updatedAt = "2024-03-12T15:45:00Z"
+                createdAt = "2024-03-05T18:57:39.550Z",
+                updatedAt = "2024-03-05T18:57:39.550Z"
             )
 
         )
