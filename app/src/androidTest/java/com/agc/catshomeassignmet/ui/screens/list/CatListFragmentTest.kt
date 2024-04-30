@@ -3,7 +3,6 @@ package com.agc.catshomeassignmet.ui.screens.list
 
 import org.junit.Assert.*
 
-
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
